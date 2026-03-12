@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Voice Code Detection</title>
+
+<link rel="stylesheet" href="style.css">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+</head>
+
+<body>
+
+<button class="back-btn" onclick="window.location.href='emergency.html'">
+<i class="fa-solid fa-arrow-left"></i>
+</button>
+
+<div class="voice-container">
+
+<h1 class="title">Voice Code Detection</h1>
+
+<div class="mic-box">
+
+<i class="fa-solid fa-microphone mic-icon"></i>
+
+<p class="listen-text">Listening for Voice Code...</p>
+
+</div>
+
+<h3 class="phrase-title">Saved Voice Code</h3>
+
+<div class="phrase-box">
+
+<span id="voicePhrase">I'm fine, don't worry</span>
+
+</div>
+
+<button class="change-btn" onclick="changePhrase()">
+Change Voice Code
+</button>
+
+<p class="info-text">
+
+When the saved phrase is detected, SOS will be triggered
+silently and emergency alerts will be sent.
+
+</p>
+
+</div>
+
+<script>
+
+function changePhrase(){
+
+let phrase = prompt("Enter new voice code phrase:");
+
+if(phrase){
+document.getElementById("voicePhrase").innerText = phrase;
+}
+
+}
+
+</script>
+
+</body>
+
+</html>

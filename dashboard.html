@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta charset="UTF-8">
+<title>SOS Connect Dashboard</title>
+
+<link rel="stylesheet" href="style.css">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+</head>
+
+<body>
+
+
+<div class="screen dashboard">
+
+<div class="grid-item sos" id="sosButton">
+ <i class="fa-solid fa-triangle-exclamation"></i>
+    <span>SOS</span>
+    <div class="ripple"></div>
+</div>
+
+<p id="sosMessage" class="sos-message"></p>
+
+
+<div class="grid-container">
+
+<a href="instructions.html" class="grid-item">
+<i class="fa-solid fa-circle-info"></i>
+<span>Instructions</span>
+</a>
+
+<div class="grid-item" onclick="window.location.href='contacts.html'">
+
+<i class="fa-solid fa-address-book"></i>
+
+<span>Contacts</span>
+
+</div>
+
+
+<div class="grid-item" onclick="window.location.href='emergency-services.html'">
+
+<i class="fa-solid fa-truck-medical"></i>
+
+<span>Emergency Services</span>
+
+</div>
+<div class="grid-item emergency" onclick="window.location.href='emergency.html'">
+<i class="fa-solid fa-shield-heart"></i>
+<span>Emergency</span>
+</div>
+
+<div class="grid-item" onclick="window.location.href='map.html'">
+
+<i class="fa-solid fa-map-location-dot"></i>
+
+<span>Map Preview</span>
+
+</div>
+
+<div class="grid-item" onclick="window.location.href='settings.html'">
+
+<i class="fa-solid fa-gear"></i>
+
+<span>Settings</span>
+
+</div>
+</div>
+
+<script>
+
+const sosButton = document.getElementById("sosButton");
+const message = document.getElementById("sosMessage");
+
+let timer;
+
+sosButton.addEventListener("click", function(){
+
+if(sosButton.classList.contains("deactivated")) return;
+
+sosButton.classList.add("deactivated");
+
+let seconds = 30;
+
+message.innerText = "Deactivated after " + seconds + "s";
+
+timer = setInterval(function(){
+
+seconds--;
+
+message.innerText = "Deactivated after " + seconds + "s";
+
+if(seconds <= 0){
+
+clearInterval(timer);
+
+sosButton.classList.remove("deactivated");
+
+message.innerText = "";
+
+}
+
+},1000);
+
+});
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Live Evidence</title>
+
+<link rel="stylesheet" href="style.css">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+</head>
+
+<body>
+
+<button class="back-btn" onclick="window.location.href='emergency.html'">
+<i class="fa-solid fa-arrow-left"></i>
+</button>
+
+<div class="evidence-container">
+
+<h1 class="title">Live Evidence</h1>
+
+<div class="recording-status" id="recordStatus">
+<span class="dot"></span> Recording Active
+</div>
+
+<p class="stopped-text" id="stoppedText" style="display:none;">
+Recording Stopped
+</p>
+
+<p class="info-text">
+Camera recording started automatically after SOS trigger.
+Recording will stop when SOS ends.
+</p>
+
+<button class="stop-recording" onclick="stopRecording()" id="stopBtn">
+<i class="fa-solid fa-stop"></i> Stop Recording
+</button>
+
+<h3 class="list-title">Saved Evidence</h3>
+
+<div class="evidence-list">
+
+<div class="evidence-item">
+<i class="fa-solid fa-video"></i>
+<span>Evidence_01.mp4</span>
+</div>
+
+<div class="evidence-item">
+<i class="fa-solid fa-video"></i>
+<span>Evidence_02.mp4</span>
+</div>
+
+
+</div>
+
+</div>
+<script>
+
+function stopRecording(){
+
+document.getElementById("recordStatus").style.display="none";
+
+document.getElementById("stoppedText").style.display="block";
+
+document.getElementById("stopBtn").disabled=true;
+
+}
+
+</script>
+</body>
+</html>
