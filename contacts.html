@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Emergency Contacts</title>
+
+<link rel="stylesheet" href="contacts.css">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+</head>
+
+<body>
+
+<div class="container">
+<button onclick="window.location.href='dashboard.html'" class="back-btn">
+<i class="fa-solid fa-arrow-left"></i>
+</button>
+<h1 class="title">Emergency Contacts</h1>
+<div class="title-line"></div>
+
+<div class="add-box">
+
+<input type="text" id="name" placeholder="Contact Name">
+
+<input type="number" id="phone" placeholder="Phone Number">
+
+<button onclick="addContact()">Add Contact</button>
+
+</div>
+
+<div id="contactList" class="contact-list"></div>
+
+</div>
+
+<script src="contacts.js"></script>
+
+</body>
+
+</html>

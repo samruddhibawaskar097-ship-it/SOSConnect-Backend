@@ -1,0 +1,1514 @@
+body{
+
+margin:0;
+padding:0;
+
+background:#111;   /* outside phone background */
+
+display:flex;
+justify-content:center;
+align-items:center;
+
+height:100vh;
+
+font-family:Arial, sans-serif;
+
+}
+
+
+
+/* Phone screen with blue gradient */
+
+.screen{
+
+width:100%;
+height:100%;
+
+background:linear-gradient(180deg,#2f73ff,#1d9fc2);
+
+overflow-y:auto;
+
+padding:20px;
+
+box-sizing:border-box;
+
+}
+/* Login card */
+
+.login-card{
+
+width:230px;
+padding:25px;
+background:black;
+border:2px solid #1e90ff;
+border-radius:18px;
+
+display:flex;
+flex-direction:column;
+align-items:center;
+gap:12px;
+
+box-shadow:0 0 12px rgba(0,0,0,0.5);
+
+/* ADD THESE LINES */
+
+margin:auto;
+position:relative;
+top:50%;
+transform:translateY(-50%);
+
+}
+
+/* Logo */
+
+.logo-small{
+font-size:16px;
+color:#1e90ff;
+letter-spacing:2px;
+}
+
+/* Heading */
+
+.login-card h2{
+color:white;
+font-size:18px;
+}
+
+/* Input */
+
+.login-card input{
+width:100%;
+padding:9px;
+border-radius:8px;
+border:1px solid #1e90ff;
+background:#0a0a0a;
+color:white;
+outline:none;
+}
+
+/* OTP Button */
+
+.otp-btn{
+width:100%;
+padding:9px;
+background:#1e90ff;
+border:none;
+color:white;
+border-radius:8px;
+cursor:pointer;
+font-weight:bold;
+}
+
+/* Divider */
+
+.divider{
+color:white;
+font-size:12px;
+}
+
+/* Google button */
+
+.google-btn{
+width:100%;
+padding:9px;
+background:white;
+border:none;
+border-radius:8px;
+cursor:pointer;
+}
+
+/* Apple button */
+
+.apple-btn{
+width:100%;
+padding:9px;
+background:black;
+color:white;
+border:1px solid white;
+border-radius:8px;
+cursor:pointer;
+}
+/* Splash Screen */
+
+.splash-screen{
+width:100%;
+height:100%;
+background:black;
+border-radius:30px;
+
+display:flex;
+justify-content:center;
+align-items:center;
+}
+
+/* Neon Circle Logo */
+
+.logo-circle{
+
+width:150px;
+height:150px;
+
+border-radius:50%;
+
+border:3px solid #1e90ff;
+
+color:#1e90ff;
+
+display:flex;
+justify-content:center;
+align-items:center;
+
+text-align:center;
+
+font-size:22px;
+font-weight:bold;
+
+box-shadow:
+0 0 10px #1e90ff,
+0 0 25px #1e90ff,
+0 0 40px #1e90ff;
+
+animation:pulse 2s infinite;
+
+}
+
+/* Animation */
+
+@keyframes pulse{
+
+0%{ transform:scale(1); }
+
+50%{ transform:scale(1.1); }
+
+100%{ transform:scale(1); }
+
+}
+/* OTP BOXES */
+
+.otp-boxes{
+display:flex;
+gap:8px;
+margin:10px 0;
+}
+
+.otp-boxes input{
+
+width:30px;
+height:35px;
+
+text-align:center;
+
+font-size:18px;
+
+border-radius:6px;
+
+border:1px solid #1e90ff;
+
+background:#0a0a0a;
+
+color:white;
+
+outline:none;
+
+}
+
+/* Resend OTP */
+
+.resend{
+color:#1e90ff;
+font-size:12px;
+cursor:pointer;
+}
+/* DASHBOARD */
+
+.dashboard{
+overflow-y:auto;
+padding-bottom:70px;
+}
+
+/* GRID */
+
+.grid-container{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:14px;
+padding:18px;
+}
+
+/* DASHBOARD CARDS */
+
+.grid-item{
+background:black;
+color:white;
+border:1px solid #1e90ff;
+border-radius:14px;
+
+/* card size */
+width:650px;
+height:110px;
+
+padding:30px;
+
+font-size:20px;
+
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+gap:8px;
+
+cursor:pointer;
+transition:0.3s;
+
+position:relative;
+overflow:hidden;
+}
+
+/* icon size */
+
+.grid-item i{
+font-size:24px;
+color:#00c6ff;
+}
+
+
+/* SOS BUTTON CARD */
+
+.grid-item.sos{
+width:120px;
+height:120px;
+
+border-radius:50% !important;
+
+padding:0;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+background:#ff0033;
+border:none;
+
+margin:10px auto;
+}
+
+/* SOS TEXT */
+
+.grid-item.sos span{
+color:white;
+font-weight:bold;
+font-size:16px;
+}
+
+/* RIPPLE */
+
+.grid-item.sos .ripple{
+position:absolute;
+width:110px;
+height:110px;
+border-radius:50%;
+background:rgba(255,255,255,0.5);
+animation:ripple 2s infinite;
+}
+
+
+/* NEON HOVER */
+
+.grid-item:hover{
+transform:scale(1.05);
+box-shadow:
+0 0 10px #00c6ff,
+0 0 20px #00c6ff;
+}
+
+
+/* SOS BUTTON */
+
+.sos{
+background:#ff0033;
+
+width:110px;
+height:110px;
+
+border-radius:50% !important;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+color:white;
+font-weight:bold;
+font-size:20px;
+
+position:relative;
+
+margin:20px auto;
+
+overflow:hidden;
+}
+
+/* RIPPLE EFFECT */
+
+.ripple{
+position:absolute;
+
+width:110px;
+height:110px;
+
+border-radius:50%;
+
+background:rgba(255,255,255,0.5);
+
+animation:ripple 2s infinite;
+}
+
+@keyframes ripple{
+
+0%{
+transform:scale(1);
+opacity:1;
+}
+
+100%{
+transform:scale(2.5);
+opacity:0;
+}
+
+}
+
+/* MAP TILE */
+
+.map{
+background:#001f3f;
+border:1px solid #00c6ff;
+}
+
+/* BOTTOM NAVIGATION */
+
+.bottom-nav{
+
+position:absolute;
+bottom:0;
+left:0;
+
+width:100%;
+height:60px;
+
+background:black;
+
+display:flex;
+justify-content:space-around;
+align-items:center;
+
+border-top:1px solid #1e90ff;
+
+}
+
+/* NAV ICONS */
+
+.nav-item{
+color:white;
+font-size:18px;
+cursor:pointer;
+}
+
+/* ACTIVE NAV */
+
+.nav-item.active{
+color:#00c6ff;
+}
+
+/* CENTER SOS NAV BUTTON */
+
+.sos-nav{
+
+background:#ff0033;
+
+width:45px;
+height:45px;
+
+border-radius:50%;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+box-shadow:
+0 0 10px red,
+0 0 20px red;
+
+}
+.sos{
+
+background:#ff0033;
+color:white;
+
+width:710px;
+height:50px;
+
+border-radius:10px;
+
+display:flex;
+flex-direction:column;
+
+align-items:center;
+justify-content:center;
+
+box-shadow:
+0 0 10px red,
+0 0 20px red;
+
+cursor:pointer;
+
+transition:0.3s;
+
+}
+
+/* when button is disabled */
+
+.sos.deactivated{
+
+background:grey;
+
+box-shadow:none;
+
+}
+
+/* countdown message */
+
+#sosMessage{
+
+font-size:11px;
+
+margin-top:4px;
+
+color:white;
+
+}
+
+
+body{
+
+margin:0;
+font-family:Arial, Helvetica, sans-serif;
+
+/* gradient background */
+
+background:linear-gradient(180deg,#2f73ff,#1d9fc2);
+
+display:flex;
+justify-content:center;
+align-items:flex-start;
+
+min-height:100vh;
+
+color:white;
+
+}
+
+/* container */
+
+.container{
+
+width:350px;
+padding-top:40px;
+text-align:center;
+
+}
+
+/* title */
+
+.title{
+
+font-size:28px;
+font-weight:bold;
+margin-bottom:10px;
+
+}
+
+/* small line under title */
+
+.title-line{
+
+width:60px;
+height:4px;
+background:#7fd6ff;
+margin:0 auto 30px auto;
+border-radius:5px;
+
+}
+
+/* grid */
+
+.grid{
+
+display:grid;
+
+grid-template-columns:1fr 1fr;
+
+gap:25px;
+
+}
+
+/* cards */
+
+.card{
+
+background:#071a33;
+
+padding:25px 18px;
+
+border-radius:20px;
+
+box-shadow:
+0 0 20px rgba(0,255,255,0.2);
+
+display:flex;
+flex-direction:column;
+align-items:center;
+
+min-height:220px;
+
+}
+
+/* icon box */
+
+.icon-box{
+
+width:60px;
+height:60px;
+
+background:#1bc5e0;
+
+border-radius:15px;
+
+display:flex;
+justify-content:center;
+align-items:center;
+
+margin-bottom:15px;
+
+box-shadow:0 0 15px #00f7ff;
+
+}
+
+.icon-box i{
+
+font-size:22px;
+
+color:white;
+
+}
+
+/* headings inside cards */
+
+.card h3{
+
+font-size:14px;
+margin-bottom:12px;
+
+}
+
+/* text inside cards */
+
+.card p{
+
+font-size:12px;
+opacity:0.85;
+line-height:1.4;
+
+}
+
+/* input */
+
+.card input{
+
+width:90%;
+
+padding:8px;
+
+border-radius:8px;
+
+border:1px solid #3d6df5;
+
+background:#0b2344;
+
+color:white;
+
+font-size:12px;
+
+margin-bottom:10px;
+
+}
+
+/* button */
+
+.card button{
+
+background:#00c8ff;
+
+border:none;
+
+padding:9px 16px;
+
+border-radius:10px;
+
+font-size:12px;
+
+cursor:pointer;
+
+color:black;
+
+font-weight:bold;
+
+}
+.back-btn{
+
+position:fixed;
+
+top:20px;
+left:20px;
+
+width:36px;
+height:36px;
+
+background:black;
+color:white;
+
+border:none;
+
+border-radius:50%;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+font-size:14px;
+
+cursor:pointer;
+
+z-index:1000;
+
+}
+
+.evidence-container{
+
+text-align:center;
+
+padding-top:60px;
+
+}
+
+/* recording indicator */
+
+.recording-status{
+
+color:red;
+
+font-weight:bold;
+
+margin-top:10px;
+
+}
+
+.dot{
+
+width:10px;
+height:10px;
+
+background:red;
+
+border-radius:50%;
+
+display:inline-block;
+
+margin-right:6px;
+
+animation:blink 1s infinite;
+
+}
+
+@keyframes blink{
+
+0%{opacity:1;}
+50%{opacity:0.2;}
+100%{opacity:1;}
+
+}
+
+/* info text */
+
+.info-text{
+
+font-size:13px;
+
+color:#555;
+
+margin:15px 20px;
+
+}
+
+/* stop button */
+
+.stop-recording{
+
+background:#ff3b3b;
+
+border:none;
+
+color:white;
+
+padding:10px 18px;
+
+border-radius:10px;
+
+font-size:14px;
+
+cursor:pointer;
+
+margin-bottom:20px;
+
+}
+
+/* evidence list */
+
+.list-title{
+
+margin-top:20px;
+
+font-size:18px;
+
+}
+
+.evidence-list{
+
+margin-top:10px;
+
+padding:0 20px;
+
+}
+
+.evidence-item{
+
+background:#111;
+
+color:white;
+
+padding:12px;
+
+border-radius:10px;
+
+margin-bottom:10px;
+
+display:flex;
+
+align-items:center;
+
+gap:10px;
+
+}
+.card{
+cursor:pointer;
+}
+.voice-container{
+
+text-align:center;
+
+padding-top:60px;
+
+}
+
+/* microphone box */
+
+.mic-box{
+
+background:#111;
+
+width:220px;
+
+margin:auto;
+
+padding:25px;
+
+border-radius:18px;
+
+box-shadow:0 0 20px rgba(0,0,0,0.4);
+
+color:white;
+
+}
+
+.mic-icon{
+
+font-size:35px;
+
+color:#00c8ff;
+
+margin-bottom:10px;
+
+}
+
+/* listening text */
+
+.listen-text{
+
+font-size:14px;
+
+}
+
+/* saved phrase */
+
+.phrase-title{
+
+margin-top:25px;
+
+font-size:18px;
+
+}
+
+.phrase-box{
+
+background:#222;
+
+color:white;
+
+padding:12px;
+
+border-radius:10px;
+
+width:220px;
+
+margin:auto;
+
+margin-top:10px;
+
+}
+
+/* change button */
+
+.change-btn{
+
+margin-top:15px;
+
+background:#00c8ff;
+
+border:none;
+
+padding:10px 18px;
+
+border-radius:10px;
+
+cursor:pointer;
+
+}
+
+/* info text */
+
+.info-text{
+
+margin-top:20px;
+
+font-size:13px;
+
+color:#555;
+
+padding:0 20px;
+
+}
+.map-container{
+
+text-align:center;
+
+padding-top:60px;
+
+}
+
+/* map preview */
+
+.map-box{
+
+width:260px;
+
+height:200px;
+
+background:#111;
+
+border-radius:18px;
+
+margin:auto;
+
+display:flex;
+
+flex-direction:column;
+
+align-items:center;
+
+justify-content:center;
+
+color:white;
+
+box-shadow:0 0 20px rgba(0,0,0,0.4);
+
+}
+
+.map-icon{
+
+font-size:40px;
+
+color:#00c8ff;
+
+margin-bottom:10px;
+
+}
+
+.map-text{
+
+font-size:14px;
+
+}
+
+/* info panel */
+
+.map-info{
+
+margin-top:25px;
+
+padding:0 30px;
+
+}
+
+.info-item{
+
+background:#111;
+
+color:white;
+
+padding:12px;
+
+border-radius:10px;
+
+margin-bottom:10px;
+
+display:flex;
+
+align-items:center;
+
+gap:10px;
+
+}
+
+.settings-container{
+
+text-align:center;
+
+padding-top:60px;
+
+}
+
+/* settings list */
+
+.settings-list{
+
+margin-top:30px;
+
+padding:0 30px;
+
+}
+
+/* each setting */
+
+.setting-item{
+
+background:#1c1c1c;
+
+color:white;
+
+padding:16px;
+
+border-radius:16px;
+
+margin-bottom:16px;
+
+display:flex;
+
+align-items:center;
+
+gap:14px;
+
+font-size:15px;
+
+cursor:pointer;
+
+/* POP EFFECT */
+
+box-shadow:0 6px 12px rgba(0,0,0,0.4);
+
+transition:0.2s;
+
+}
+
+/* hover animation */
+
+.setting-item:hover{
+
+transform:translateY(-3px);
+
+box-shadow:0 10px 18px rgba(0,0,0,0.5);
+
+}
+
+.settings-container{
+
+padding-top:80px;
+text-align:center;
+
+}
+
+.settings-cards{
+
+width:280px;
+margin:auto;
+margin-top:30px;
+
+}
+
+.setting-card{
+
+background:#111;
+
+color:white;
+
+padding:16px;
+
+border-radius:14px;
+
+margin-bottom:18px;
+
+display:flex;
+
+align-items:center;
+
+gap:12px;
+
+font-size:15px;
+
+cursor:pointer;
+
+box-shadow:0 8px 18px rgba(0,0,0,0.35);
+
+transition:0.2s;
+
+}
+
+.setting-card:hover{
+
+transform:translateY(-3px);
+
+box-shadow:0 12px 22px rgba(0,0,0,0.5);
+
+}
+
+.setting-card i{
+
+color:#ff3b3b;
+font-size:18px;
+
+}
+
+.logout{
+
+background:black;
+
+color:white;
+
+justify-content:center;
+
+}
+
+.logout i{
+
+color:#ff3b3b;
+
+}
+.page-container{
+
+padding-top:70px;
+
+text-align:center;
+
+}
+
+.page-container input{
+
+display:block;
+
+margin:15px auto;
+
+padding:10px;
+
+width:220px;
+
+border-radius:8px;
+
+border:1px solid #ccc;
+
+}
+
+.save-btn{
+
+width:100%;
+
+background:#399819;
+
+
+color:white;
+
+border:none;
+
+padding:14px;
+
+border-radius:12px;
+
+font-size:15px;
+
+font-weight:bold;
+
+margin-top:20px;
+
+cursor:pointer;
+
+box-shadow:0 6px 12px rgba(0,0,0,0.3);
+
+transition:0.2s;
+
+}
+
+.save-btn:hover{
+
+background:#399819;
+
+transform:scale(1.03);
+
+}
+
+.option-card{
+
+background:#111;
+
+color:white;
+
+padding:14px;
+
+border-radius:12px;
+
+margin:15px auto;
+
+width:260px;
+
+box-shadow:0 8px 18px rgba(0,0,0,0.4);
+
+font-size:14px;
+
+}
+
+.option-card input{
+
+margin-right:8px;
+
+}
+
+.service-card{
+
+background:#111;
+
+color:white;
+
+padding:15px;
+
+margin:15px auto;
+
+width:260px;
+
+border-radius:14px;
+
+display:flex;
+
+flex-direction:column;
+
+align-items:center;
+
+gap:5px;
+
+box-shadow:0 8px 18px rgba(0,0,0,0.35);
+
+}
+
+.service-card i{
+
+color:#ff0033;
+
+font-size:22px;
+
+}
+
+.travel-box{
+
+margin-top:30px;
+
+background:#0d0d0d;
+
+padding:18px;
+
+border-radius:14px;
+
+width:280px;
+
+margin-left:auto;
+margin-right:auto;
+
+box-shadow:0 10px 20px rgba(0,0,0,0.4);
+
+color:white;
+
+}
+
+.call-btn{
+
+margin-top:8px;
+
+background:#ff0033;
+
+color:white;
+
+padding:8px 14px;
+
+border-radius:8px;
+
+text-decoration:none;
+
+font-size:13px;
+
+box-shadow:0 4px 10px rgba(0,0,0,0.3);
+
+transition:0.2s;
+
+}
+
+.call-btn:hover{
+
+background:#cc0029;
+
+}
+
+html{
+scroll-behavior:smooth;
+}
+
+.grid-item,
+.feature-box,
+.service-card{
+
+transition:all 0.3s ease;
+
+}
+
+.grid-item:hover,
+.feature-box:hover,
+.service-card:hover{
+
+transform:translateY(-5px);
+
+box-shadow:
+0 0 10px #1e90ff,
+0 0 20px #1e90ff;
+
+}
+
+button,
+.call-btn{
+
+transition:0.15s;
+
+}
+
+button:active,
+.call-btn:active{
+
+transform:scale(0.95);
+
+box-shadow:none;
+
+}
+
+.loader{
+
+width:30px;
+height:30px;
+
+border:3px solid #1e90ff;
+border-top:3px solid transparent;
+
+border-radius:50%;
+
+margin:20px auto;
+
+animation:spin 1s linear infinite;
+
+}
+
+@keyframes spin{
+
+0%{transform:rotate(0deg);}
+100%{transform:rotate(360deg);}
+
+}
+
+/* Instructions page */
+
+.instruction-container{
+
+display:flex;
+
+flex-direction:column;
+
+gap:15px;
+
+padding:20px;
+
+}
+
+.instruction-card{
+
+background:black;
+
+border:1px solid #1e90ff;
+
+border-radius:12px;
+
+padding:15px;
+
+color:white;
+
+box-shadow:0 0 10px rgba(0,0,0,0.5);
+
+}
+
+.instruction-card h3{
+
+color:#1e90ff;
+
+font-size:16px;
+
+margin-bottom:6px;
+
+}
+
+.instruction-card p{
+
+font-size:13px;
+
+line-height:1.4;
+
+}
+
+.instruction-card ul{
+
+font-size:13px;
+
+padding-left:20px;
+
+}
+
+/* when SOS is deactivated */
+
+.sos.deactivated{
+background:grey;
+box-shadow:none;
+}
+
+/* countdown text */
+
+.sos-message{
+color:rgb(225, 28, 28);
+font-size:12px;
+text-align:center;
+margin-top:6px;
+}
+
+.ripple{
+pointer-events:none;
+}
+
+/* Page layout */
+
+.instructions-page{
+display:flex;
+flex-direction:column;
+align-items:center;
+padding:20px;
+gap:18px;
+}
+
+/* Title */
+
+.instructions-title{
+color:white;
+font-size:20px;
+font-weight:bold;
+text-align:center;
+}
+
+/* Instruction cards */
+
+.instruction-card{
+background:black;
+border:1px solid #1e90ff;
+border-radius:14px;
+padding:20px;
+width:360px;
+color:white;
+font-size:20px;
+line-height:1.5;
+}
+
+/* Icons */
+
+.instruction-card i{
+color:#00c6ff;
+margin-right:6px;
+}
+
+/* Checkbox area */
+
+.permission-box{
+background:black;
+border:1px solid #1e90ff;
+border-radius:12px;
+padding:20px;
+width:360px;
+color:white;
+font-size:13px;
+}
+
+.continue-btn{
+margin-top:10px;
+padding:10px 20px;
+background:grey;
+border:none;
+border-radius:8px;
+color:white;
+font-weight:bold;
+cursor:not-allowed;
+}
+
+/* active state */
+
+.continue-btn.active{
+background:#1e90ff;
+cursor:pointer;
+}
+
+.grid-item{
+text-decoration:none;
+color:white;
+}

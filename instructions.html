@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<meta charset="UTF-8">
+<title>App Instructions</title>
+
+<link rel="stylesheet" href="style.css">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+
+</head>
+
+<body>
+
+<div class="instructions-page">
+
+<h2 class="instructions-title">How To Use SOS CONNECT</h2>
+
+<!-- SOS usage -->
+
+<div class="instruction-card">
+<i class="fa-solid fa-triangle-exclamation"></i>
+<b>How to use SOS</b>
+<p>
+Tap the SOS button on the dashboard in emergency situations.
+The app will send alerts to your emergency contacts and activate
+safety features like location sharing and recording.
+</p>
+</div>
+
+<!-- Add contacts -->
+
+<div class="instruction-card">
+<i class="fa-solid fa-user-plus"></i>
+<b>How to add contacts</b>
+<p>
+Go to the Contacts section on the dashboard and add trusted
+family or friends. These contacts will receive SOS alerts
+when the emergency button is triggered.
+</p>
+</div>
+
+<!-- Permissions -->
+
+<div class="instruction-card">
+<i class="fa-solid fa-shield"></i>
+<b>Permissions required</b>
+<p>
+Location – to share your live location<br>
+Camera – for emergency video recording<br>
+Microphone – for voice trigger SOS<br>
+SMS – to send alerts to contacts
+</p>
+</div>
+
+<!-- Confirmation -->
+
+<div class="permission-box">
+
+<label>
+<input type="checkbox" id="agreeCheck">
+ I understand the instructions and grant necessary permissions.
+</label>
+
+<br><br>
+
+<button class="continue-btn" id="continueBtn" disabled>
+Continue
+</button>
+
+</div>
+
+</div>
+
+<script>
+
+const checkbox = document.getElementById("agreeCheck");
+const button = document.getElementById("continueBtn");
+
+/* Enable button when checkbox checked */
+
+checkbox.addEventListener("change", function(){
+
+if(this.checked){
+
+button.disabled = false;
+button.classList.add("active");
+
+}else{
+
+button.disabled = true;
+button.classList.remove("active");
+
+}
+
+});
+
+/* Return to dashboard */
+
+button.addEventListener("click", function(){
+
+window.location.href = "dashboard.html";
+
+});
+
+</script>
+
+</body>
+
+</html>
