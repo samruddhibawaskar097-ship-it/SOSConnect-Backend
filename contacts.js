@@ -1,40 +1,77 @@
 // Add <script src="api.js"></script> in contacts.html BEFORE contacts.js
 
-async function loadContacts() {
-  const data = await getContacts();
-  const list = document.getElementById("contactList");
-  list.innerHTML = "";
+// contacts.js — connected to SOSConnect backend
 
-  (data.contacts || []).forEach(c => {
-    list.innerHTML += `
-      <div class="contact">
-        <div class="contact-info">
-          <strong>${c.name}</strong>
-          <span>${c.phone}</span>
-        </div>
-        <div class="actions">
-          <a href="tel:${c.phone}"><button class="call"><i class="fa fa-phone"></i></button></a>
-          <button class="delete" onclick="removeContact('${c.phone}')">
-            <i class="fa fa-trash"></i>
-          </button>
-        </div>
-      </div>`;
-  });
+async function loadContacts() {
+  const list = document.getElementById("contactList");
+  list.innerHTML = "<p style='color:white;'>Loading...</p>";
+
+  try {
+    const data = await getContacts();
+    list.innerHTML = "";
+
+    if (!data.contacts || data.contacts.length === 0) {
+      list.innerHTML = "<p style='color:white;opacity:0.7;'>No contacts added yet.</p>";
+      return;
+    }
+
+    data.contacts.forEach(c => {
+      list.innerHTML += `
+        <div class="contact">
+          <div class="contact-info">
+            <strong>${c.name}</strong>
+            <span>${c.phone}</span>
+          </div>
+          <div class="actions">
+            <a href="tel:${c.phone}">
+              <button class="call"><i class="fa fa-phone"></i></button>
+            </a>
+            <button class="delete" onclick="removeContact('${c.phone}')">
+              <i class="fa fa-trash"></i>
+            </button>
+          </div>
+        </div>`;
+    });
+  } catch (e) {
+    list.innerHTML = "<p style='color:red;'>Error loading contacts.</p>";
+  }
 }
 
 async function addContact() {
-  const name = document.getElementById("name").value;
-  const phone = document.getElementById("phone").value;
-  if (!name || !phone) { alert("Enter name and phone"); return; }
-  await addContact(name, phone);
-  document.getElementById("name").value = "";
-  document.getElementById("phone").value = "";
-  loadContacts();
+  const name = document.getElementById("name").value.trim();
+  const phone = document.getElementById("phone").value.trim();
+
+  if (!name || !phone) {
+    alert("Please enter name and phone number.");
+    return;
+  }
+
+  // Add country code if missing
+  const formattedPhone = phone.startsWith("+") ? phone : "+91" + phone;
+
+  try {
+    const result = await addContactAPI(name, formattedPhone);
+    if (result.message) {
+      document.getElementById("name").value = "";
+      document.getElementById("phone").value = "";
+      loadContacts();
+    } else {
+      alert("Error: " + (result.error || "Could not add contact"));
+    }
+  } catch (e) {
+    alert("Error adding contact: " + e.message);
+  }
 }
 
 async function removeContact(phone) {
-  await deleteContact(phone);
-  loadContacts();
+  if (!confirm("Remove this contact?")) return;
+  try {
+    await deleteContact(phone);
+    loadContacts();
+  } catch (e) {
+    alert("Error removing contact.");
+  }
 }
 
+// Load contacts when page opens
 loadContacts();

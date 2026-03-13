@@ -1,74 +1,70 @@
+
 <!DOCTYPE html>
 <html>
-
 <head>
-    <script src="api.js"></script>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Voice Code Detection</title>
-
 <link rel="stylesheet" href="style.css">
-
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<script src="api.js"></script>
 </head>
-
 <body>
 
 <button class="back-btn" onclick="window.location.href='emergency.html'">
-<i class="fa-solid fa-arrow-left"></i>
+  <i class="fa-solid fa-arrow-left"></i>
 </button>
 
 <div class="voice-container">
+  <h1 class="title">Voice Code Detection</h1>
 
-<h1 class="title">Voice Code Detection</h1>
+  <div class="mic-box">
+    <i class="fa-solid fa-microphone mic-icon"></i>
+    <p class="listen-text" id="listenText">Listening for Voice Code...</p>
+  </div>
 
-<div class="mic-box">
+  <h3 class="phrase-title">Saved Voice Code</h3>
 
-<i class="fa-solid fa-microphone mic-icon"></i>
+  <div class="phrase-box">
+    <span id="voicePhrase">I'm fine, don't worry</span>
+  </div>
 
-<p class="listen-text">Listening for Voice Code...</p>
+  <button class="change-btn" onclick="changePhrase()">
+    Change Voice Code
+  </button>
 
-</div>
+  <p class="info-text">
+    When the saved phrase is detected, SOS will be triggered
+    silently and emergency alerts will be sent.
+  </p>
 
-<h3 class="phrase-title">Saved Voice Code</h3>
-
-<div class="phrase-box">
-
-<span id="voicePhrase">I'm fine, don't worry</span>
-
-</div>
-
-<button class="change-btn" onclick="changePhrase()">
-Change Voice Code
-</button>
-
-<p class="info-text">
-
-When the saved phrase is detected, SOS will be triggered
-silently and emergency alerts will be sent.
-
-</p>
-
+  <div id="statusMsg" style="color:white;text-align:center;margin-top:10px;font-size:13px;"></div>
 </div>
 
 <script>
+async function changePhrase() {
+  const phrase = prompt("Enter new voice code phrase:");
+  if (!phrase || phrase.trim().length < 3) {
+    alert("Phrase too short! Enter at least 3 words.");
+    return;
+  }
 
-function changePhrase(){
+  const status = document.getElementById("statusMsg");
+  status.innerHTML = "Saving...";
 
-let phrase = prompt("Enter new voice code phrase:");
-
-if(phrase){
-document.getElementById("voicePhrase").innerText = phrase;
+  try {
+    const result = await saveVoiceCode(phrase.trim());
+    if (result.message) {
+      document.getElementById("voicePhrase").innerText = phrase.trim();
+      status.innerHTML = "✅ Voice code saved!";
+    } else {
+      status.innerHTML = "<span style='color:red;'>Error: " + (result.error || "Could not save") + "</span>";
+    }
+  } catch (e) {
+    status.innerHTML = "<span style='color:red;'>Error saving voice code.</span>";
+  }
 }
-
-}
-
 </script>
 
 </body>
-
 </html>

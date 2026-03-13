@@ -1,7 +1,8 @@
-
+// api.js — SOSConnect Backend API
 const BASE_URL = "https://sos-connect.onrender.com";
 
-let currentUID = localStorage.getItem("uid") || null;
+// ── USER UID ──────────────────────────────────────
+let currentUID = localStorage.getItem("uid") || "user001";
 
 function setUID(uid) {
   currentUID = uid;
@@ -12,6 +13,7 @@ function getUID() {
   return currentUID;
 }
 
+// ── USER ──────────────────────────────────────────
 async function registerUser(uid, name, email, phone) {
   const res = await fetch(`${BASE_URL}/api/users/register`, {
     method: "POST",
@@ -21,12 +23,13 @@ async function registerUser(uid, name, email, phone) {
   return res.json();
 }
 
+// ── CONTACTS ──────────────────────────────────────
 async function getContacts() {
   const res = await fetch(`${BASE_URL}/api/users/${getUID()}/contacts`);
   return res.json();
 }
 
-async function addContact(name, phone) {
+async function addContactAPI(name, phone) {
   const res = await fetch(`${BASE_URL}/api/users/${getUID()}/contacts`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -42,15 +45,23 @@ async function deleteContact(phone) {
   return res.json();
 }
 
+// ── SOS ───────────────────────────────────────────
 async function triggerSOS(latitude, longitude) {
   const res = await fetch(`${BASE_URL}/api/alerts/sos`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ uid: getUID(), latitude, longitude })
+    body: JSON.stringify({
+      uid: getUID(),
+      latitude,
+      longitude,
+      type: "manual",
+      message: "SOS triggered from app!"
+    })
   });
   return res.json();
 }
 
+// ── FIRST AID ─────────────────────────────────────
 async function getFirstAid(keyword) {
   const res = await fetch(`${BASE_URL}/api/alerts/firstaid`, {
     method: "POST",
@@ -60,6 +71,7 @@ async function getFirstAid(keyword) {
   return res.json();
 }
 
+// ── TRAVELER SAFETY ───────────────────────────────
 async function getTravelerInfo(countryCode, countryName) {
   const res = await fetch(`${BASE_URL}/api/alerts/traveler/info`, {
     method: "POST",
@@ -69,6 +81,7 @@ async function getTravelerInfo(countryCode, countryName) {
   return res.json();
 }
 
+// ── NEARBY PLACES ─────────────────────────────────
 async function getNearbyAll(latitude, longitude) {
   const res = await fetch(`${BASE_URL}/api/navigation/nearby/all`, {
     method: "POST",
@@ -78,6 +91,7 @@ async function getNearbyAll(latitude, longitude) {
   return res.json();
 }
 
+// ── VOICE CODE ────────────────────────────────────
 async function saveVoiceCode(phrase) {
   const res = await fetch(`${BASE_URL}/api/users/${getUID()}/distress-phrase`, {
     method: "POST",
@@ -96,11 +110,21 @@ async function matchVoiceCode(spoken) {
   return res.json();
 }
 
-sosButton.addEventListener("click", async function(){
-  if(sosButton.classList.contains("deactivated")) return;
-  sosButton.classList.add("deactivated");
-  navigator.geolocation.getCurrentPosition(async (pos) => {
-    const result = await triggerSOS(pos.coords.latitude, pos.coords.longitude);
-    alert(`SOS sent! ${result.contacts_notified} contacts notified.`);
+// ── DEAD MAN'S SWITCH ─────────────────────────────
+async function startCheckinAPI(intervalMinutes = 30) {
+  const res = await fetch(`${BASE_URL}/api/alerts/checkin/start`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ uid: getUID(), interval_minutes: intervalMinutes })
   });
-});
+  return res.json();
+}
+
+async function respondCheckin() {
+  const res = await fetch(`${BASE_URL}/api/alerts/checkin/respond`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ uid: getUID() })
+  });
+  return res.json();
+}
