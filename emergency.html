@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <script src="api.js"></script>
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -80,6 +81,10 @@ Auto-starts camera stream when SOS is triggered.
 <div class="icon-box">
 <i class="fa-solid fa-comment"></i>
 </div>
+
+<input type="text" id="firstAidInput" placeholder="e.g. cpr, bleeding, burn">
+<button onclick="askFirstAid()">Get Instructions</button>
+<div id="firstAidResult" style="color:white; font-size:12px; margin-top:8px;"></div>
 
 <h3>No Response Alert</h3>
 
