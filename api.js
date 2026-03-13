@@ -95,3 +95,12 @@ async function matchVoiceCode(spoken) {
   });
   return res.json();
 }
+
+sosButton.addEventListener("click", async function(){
+  if(sosButton.classList.contains("deactivated")) return;
+  sosButton.classList.add("deactivated");
+  navigator.geolocation.getCurrentPosition(async (pos) => {
+    const result = await triggerSOS(pos.coords.latitude, pos.coords.longitude);
+    alert(`SOS sent! ${result.contacts_notified} contacts notified.`);
+  });
+});
