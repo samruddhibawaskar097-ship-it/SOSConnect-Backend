@@ -1,139 +1,70 @@
+
+
 <!DOCTYPE html>
 <html>
 <head>
     <script src="api.js"></script>
-
+      
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Emergency Services</title>
-
+<title>Voice Code Detection</title>
 <link rel="stylesheet" href="style.css">
-
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 </head>
 
 <body>
 
-<button class="back-btn" onclick="window.location.href='dashboard.html'">
-<i class="fa-solid fa-arrow-left"></i>
+<button class="back-btn" onclick="window.location.href='emergency.html'">
+  <i class="fa-solid fa-arrow-left"></i>
 </button>
 
-<div class="page-container">
+<div class="voice-container">
+  <h1 class="title">Voice Code Detection</h1>
 
-<h1 class="title">Emergency Services</h1>
+  <div class="mic-box">
+    <i class="fa-solid fa-microphone mic-icon"></i>
+    <p class="listen-text">Listening for Voice Code...</p>
+  </div>
 
-<div class="service-card">
-<i class="fa-solid fa-shield-halved"></i>
-<span>Police Station</span>
-<a href="tel:100" class="call-btn">Call 100</a>
-</div>
+  <h3 class="phrase-title">Saved Voice Code</h3>
 
-<div class="service-card">
-<i class="fa-solid fa-truck-medical"></i>
-<span>Ambulance</span>
-<a href="tel:102" class="call-btn">Call 102</a>
-</div>
+  <div class="phrase-box">
+    <span id="voicePhrase">I'm fine, don't worry</span>
+  </div>
 
-<div class="service-card">
-<i class="fa-solid fa-fire-extinguisher"></i>
-<span>Fire Brigade</span>
-<a href="tel:101" class="call-btn">Call 101</a>
-</div>
+  <button class="change-btn" onclick="changePhrase()">
+    Change Voice Code
+  </button>
 
-<div class="service-card">
-<i class="fa-solid fa-hospital"></i>
-<span>Nearby Hospital</span>
-<a href="https://www.google.com/maps/search/hospital+near+me" 
-target="_blank" class="call-btn">Open Map</a>
-</div>
+  <p class="info-text">
+    When the saved phrase is detected, SOS will be triggered
+    silently and emergency alerts will be sent.
+  </p>
 
-<div class="travel-box">
-
-<h3>🌍 Travel Safety Mode</h3>
-
-<p id="travelInfo">
-Detecting location for local emergency numbers...
-</p>
-
-</div>
-
+  <p id="statusMsg" style="text-align:center;margin-top:10px;font-size:13px;"></p>
 </div>
 
 <script>
-
-const info = document.getElementById("travelInfo");
-
-function detectCountry(){
-
-if(navigator.geolocation){
-
-navigator.geolocation.getCurrentPosition(success, error);
-
-}else{
-
-info.innerHTML = "Location not supported.";
-
+async function changePhrase() {
+  const phrase = prompt("Enter new voice code phrase:");
+  if (!phrase || phrase.trim().length < 3) {
+    alert("Phrase too short!");
+    return;
+  }
+  const status = document.getElementById("statusMsg");
+  status.innerHTML = "Saving...";
+  try {
+    const result = await saveVoiceCode(phrase.trim());
+    if (result.message) {
+      document.getElementById("voicePhrase").innerText = phrase.trim();
+      status.innerHTML = "✅ Voice code saved!";
+    } else {
+      status.innerHTML = "Error: " + (result.error || "Could not save");
+    }
+  } catch (e) {
+    status.innerHTML = "Error saving voice code.";
+  }
 }
-
-}
-
-function success(position){
-
-let lat = position.coords.latitude;
-let lon = position.coords.longitude;
-
-/* Simple demo logic */
-
-if(lat > 6 && lat < 37 && lon > 68 && lon < 97){
-
-// User inside India
-
-info.innerHTML = `
-🇮🇳 You are in India
-
-Police: 100  
-Ambulance: 102  
-Fire: 101  
-
-Emergency phrase:
-"Mujhe madad chahiye"
-`;
-
-}
-
-else{
-
-// User outside India
-
-info.innerHTML = `
-🌍 Foreign Country Detected
-
-Universal Emergency Number: 112
-
-Safety Tip:
-Contact nearest embassy if required.
-
-Emergency Phrase:
-"Help! I need assistance"
-`;
-
-}
-
-}
-
-function error(){
-
-info.innerHTML = "Unable to detect location.";
-
-}
-
-detectCountry();
-
-</script>
-
-</body>
-
+</script></body>
 </html>

@@ -1,5 +1,3 @@
-// Add <script src="api.js"></script> in contacts.html BEFORE contacts.js
-
 // contacts.js — connected to SOSConnect backend
 
 async function loadContacts() {

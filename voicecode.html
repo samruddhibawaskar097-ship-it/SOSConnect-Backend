@@ -1,13 +1,13 @@
-
 <!DOCTYPE html>
 <html>
 <head>
+  <script src="api.js"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Voice Code Detection</title>
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-<script src="api.js"></script>
+
 </head>
 <body>
 
@@ -20,7 +20,7 @@
 
   <div class="mic-box">
     <i class="fa-solid fa-microphone mic-icon"></i>
-    <p class="listen-text" id="listenText">Listening for Voice Code...</p>
+    <p class="listen-text">Listening for Voice Code...</p>
   </div>
 
   <h3 class="phrase-title">Saved Voice Code</h3>
@@ -38,6 +38,7 @@
     silently and emergency alerts will be sent.
   </p>
 
+  <p id="statusMsg" style="text-align:center;font-size:13px;margin-top:10px;"></p>
   <div id="statusMsg" style="color:white;text-align:center;margin-top:10px;font-size:13px;"></div>
 </div>
 
@@ -48,10 +49,8 @@ async function changePhrase() {
     alert("Phrase too short! Enter at least 3 words.");
     return;
   }
-
   const status = document.getElementById("statusMsg");
   status.innerHTML = "Saving...";
-
   try {
     const result = await saveVoiceCode(phrase.trim());
     if (result.message) {
