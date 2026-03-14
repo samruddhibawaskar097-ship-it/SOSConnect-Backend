@@ -1,5 +1,5 @@
 // api.js — SOSConnect Backend API
-const BASE_URL = "https://sos-connect.onrender.com";
+const BASE_URL = "https://sos-connect.onrender.com/api";
 
 // ── USER UID ──────────────────────────────────────
 let currentUID = localStorage.getItem("uid") || "user001";
