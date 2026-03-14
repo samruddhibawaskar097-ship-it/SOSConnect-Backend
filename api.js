@@ -1,24 +1,6 @@
 // api.js — SOSConnect Backend API
-const BASE_URL = "https://samruddhibawaskar097-ship-it.github.io/SOSConnect-Backend/login.html";
-fetch("https://sos-connect.onrender.com/").then(r=>r.json()).then(d=>console.log(d))
+const BASE_URL = "https://sos-connect.onrender.com";
 
-async function sendOTP(phone, name) {
-  const res = await fetch(`${BASE_URL}/api/auth/send-otp`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ phone, name })
-  });
-  return res.json();
-}
-
-async function verifyOTP(phone, otp, name) {
-  const res = await fetch(`${BASE_URL}/api/auth/verify-otp`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ phone, otp, name })
-  });
-  return res.json();
-}
 // ── USER UID ──────────────────────────────────────
 let currentUID = localStorage.getItem("uid") || "user001";
 
@@ -143,6 +125,25 @@ async function respondCheckin() {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ uid: getUID() })
+  });
+  return res.json();
+}
+
+// ── AUTH ──────────────────────────────────────────
+async function sendOTPAPI(phone, name) {
+  const res = await fetch(`${BASE_URL}/api/auth/send-otp`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ phone, name })
+  });
+  return res.json();
+}
+
+async function verifyOTPAPI(phone, otp, name) {
+  const res = await fetch(`${BASE_URL}/api/auth/verify-otp`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ phone, otp, name })
   });
   return res.json();
 }
