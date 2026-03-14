@@ -8,44 +8,44 @@
 <link rel="stylesheet" href="style.css">
 <script src="api.js"></script>
 </head>
-
 <body>
 
 <div class="screen">
+  <div class="login-card">
 
-<div class="login-card">
-     <div class="logo-small">SOS CONNECT</div>
-
-
+    <div class="logo-small">SOS CONNECT</div>
     <h2>Login / Sign Up</h2>
 
-<input type="text" id="phoneInput" placeholder="Enter Phone Number">
+    <input type="text" id="nameInput" placeholder="Your Full Name">
+    <input type="tel" id="phoneInput" placeholder="Phone Number (e.g. 9876543210)">
 
+    <button class="otp-btn" onclick="proceedToOTP()">Send OTP</button>
 
-<button class="otp-btn" onclick="sendOTP()">Send OTP</button>
+    <div class="divider">OR</div>
+    <button class="google-btn">Continue with Google</button>
+    <button class="apple-btn">Continue with Apple</button>
 
-<div class="divider">OR</div>
-
-<button class="google-btn">Continue with Google</button>
-
-<button class="apple-btn">Continue with Apple</button>
-
-
-
+    <p id="loginMsg" style="text-align:center;font-size:13px;margin-top:8px;"></p>
+  </div>
 </div>
 
 <script>
-async function sendOTP(){
-  const phone = document.getElementById("phoneInput").value.trim();
+function proceedToOTP(){
   const name = document.getElementById("nameInput").value.trim();
+  const phone = document.getElementById("phoneInput").value.trim();
+  const msg = document.getElementById("loginMsg");
 
-  if(!phone || !name){ alert("Enter your name and phone number!"); return; }
+  if(!name || !phone){ alert("Please enter your name and phone number!"); return; }
 
-  // Save name and phone for OTP page
+  const formattedPhone = phone.startsWith("+") ? phone : "+91" + phone;
+
   localStorage.setItem("userName", name);
-  localStorage.setItem("userPhone", phone);
+  localStorage.setItem("userPhone", formattedPhone);
 
-  window.location.href = "otp.html";
+  msg.style.color = "#00e676";
+  msg.innerText = "✅ Redirecting...";
+
+  setTimeout(() => window.location.href = "otp.html", 800);
 }
 </script>
 

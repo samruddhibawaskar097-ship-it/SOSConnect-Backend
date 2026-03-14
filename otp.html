@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,72 +10,93 @@
 </head>
 <body>
 
-<div class="otp-boxes">
-      <input type="text" maxlength="1" oninput="moveNext(this, 1)">
-      <input type="text" maxlength="1" oninput="moveNext(this, 2)">
-      <input type="text" maxlength="1" oninput="moveNext(this, 3)">
-      <input type="text" maxlength="1" oninput="moveNext(this, 4)">
-      <input type="text" maxlength="1" oninput="moveNext(this, 5)">
-      <input type="text" maxlength="1" oninput="moveNext(this, 6)">
+<div class="screen">
+  <div class="login-card">
 
-</div> 
-    <button class="otp-btn" onclick="verifyOTP()">Verify</button>
-    <p class="resend" onclick="alert('OTP resent!')">Resend OTP</p>
+    <h2>Enter OTP</h2>
+    <p style="color:rgba(255,255,255,0.6);font-size:13px;margin-bottom:16px;" id="sentTo">OTP sent to your phone</p>
+
+    <div class="otp-boxes">
+      <input type="text" maxlength="1" id="o1" oninput="moveNext(this,'o2')">
+      <input type="text" maxlength="1" id="o2" oninput="moveNext(this,'o3')">
+      <input type="text" maxlength="1" id="o3" oninput="moveNext(this,'o4')">
+      <input type="text" maxlength="1" id="o4" oninput="moveNext(this,'o5')">
+      <input type="text" maxlength="1" id="o5" oninput="moveNext(this,'o6')">
+      <input type="text" maxlength="1" id="o6" oninput="moveNext(this,null)">
+    </div>
+
+    <button class="otp-btn" id="verifyBtn" onclick="verifyOTP()">Verify</button>
+    <p class="resend" onclick="resendOTP()">Resend OTP</p>
+    <p id="otpMsg" style="text-align:center;font-size:13px;margin-top:8px;"></p>
 
   </div>
 </div>
 
 <script>
-function moveNext(el, index){
-  if(el.value.length === 1 && index < 6){
-    el.parentElement.children[index].focus();
+// Show phone number
+const phone = localStorage.getItem("userPhone") || "";
+if(phone) document.getElementById("sentTo").innerText = "OTP sent to " + phone;
+
+function moveNext(el, nextId){
+  if(el.value.length === 1 && nextId){
+    document.getElementById(nextId).focus();
   }
+}
+
+function getOTPValue(){
+  return ["o1","o2","o3","o4","o5","o6"].map(id => document.getElementById(id).value).join("");
 }
 
 async function verifyOTP(){
-  // Register user in backend
+  const otp = getOTPValue();
+  const phone = localStorage.getItem("userPhone");
   const name = localStorage.getItem("userName") || "User";
-  const phone = localStorage.getItem("userPhone") || "+910000000000";
-  const uid = "user_" + phone.replace(/\D/g, "");
-  const email = uid + "@sosconnect.app";
-  const formattedPhone = phone.startsWith("+") ? phone : "+91" + phone;
+  const msg = document.getElementById("otpMsg");
+  const btn = document.getElementById("verifyBtn");
+
+  if(otp.length < 6){ alert("Please enter the complete 6-digit OTP"); return; }
+
+  btn.disabled = true;
+  btn.innerText = "Verifying...";
+  msg.style.color = "white";
+  msg.innerText = "Verifying OTP...";
 
   try {
-    await registerUser(uid, name, email, formattedPhone);
-    setUID(uid);
+    const result = await verifyOTPAPI(phone, otp, name);
+    if(result.uid){
+      setUID(result.uid);
+      localStorage.setItem("userName", result.name);
+      msg.style.color = "#00e676";
+      msg.innerText = "✅ Verified! Welcome " + result.name + "!";
+      setTimeout(() => window.location.href = "dashboard.html", 1000);
+    } else {
+      msg.style.color = "#ff4444";
+      msg.innerText = "❌ " + (result.error || "Invalid OTP");
+      btn.disabled = false;
+      btn.innerText = "Verify";
+    }
   } catch(e) {
-    // If already registered, just set UID
-    setUID(uid);
-  }
-
-  window.location.href = "dashboard.html";
-}
-</script>
-
-<script>
-function moveNext(el, index){
-  if(el.value.length === 1 && index < 6){
-    el.parentElement.children[index].focus();
+    msg.style.color = "#ff4444";
+    msg.innerText = "Connection error. Try again.";
+    btn.disabled = false;
+    btn.innerText = "Verify";
   }
 }
 
-async function verifyOTP(){
-  // Register user in backend
-  const name = localStorage.getItem("userName") || "User";
-  const phone = localStorage.getItem("userPhone") || "+910000000000";
-  const uid = "user_" + phone.replace(/\D/g, "");
-  const email = uid + "@sosconnect.app";
-  const formattedPhone = phone.startsWith("+") ? phone : "+91" + phone;
-
+async function resendOTP(){
+  const phone = localStorage.getItem("userPhone");
+  const name = localStorage.getItem("userName");
+  const msg = document.getElementById("otpMsg");
+  msg.style.color = "white";
+  msg.innerText = "Resending OTP...";
   try {
-    await registerUser(uid, name, email, formattedPhone);
-    setUID(uid);
+    await sendOTPAPI(phone, name);
+    msg.style.color = "#00e676";
+    msg.innerText = "✅ OTP resent!";
   } catch(e) {
-    // If already registered, just set UID
-    setUID(uid);
+    msg.style.color = "#ff4444";
+    msg.innerText = "Failed to resend OTP.";
   }
-
-  window.location.href = "dashboard.html";
 }
 </script>
 
