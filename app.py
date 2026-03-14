@@ -2,6 +2,8 @@ from flask import Flask
 from flask_cors import CORS
 from dotenv import load_dotenv
 import os
+from routes.auth import auth_bp
+app.register_blueprint(auth_bp, url_prefix='/api/auth')
 
 # Load environment variables
 load_dotenv()
