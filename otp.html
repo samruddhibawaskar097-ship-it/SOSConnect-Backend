@@ -2,40 +2,81 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>OTP Verification</title>
 <link rel="stylesheet" href="style.css">
+<script src="api.js"></script>
 </head>
-
 <body>
 
-
-
-<div class="screen">
-
-<div class="login-card">
-
-<h2>Enter OTP</h2>
-
 <div class="otp-boxes">
+      <input type="text" maxlength="1" oninput="moveNext(this, 1)">
+      <input type="text" maxlength="1" oninput="moveNext(this, 2)">
+      <input type="text" maxlength="1" oninput="moveNext(this, 3)">
+      <input type="text" maxlength="1" oninput="moveNext(this, 4)">
+      <input type="text" maxlength="1" oninput="moveNext(this, 5)">
+      <input type="text" maxlength="1" oninput="moveNext(this, 6)">
 
-<input type="text" maxlength="1">
-<input type="text" maxlength="1">
-<input type="text" maxlength="1">
-<input type="text" maxlength="1">
-<input type="text" maxlength="1">
-<input type="text" maxlength="1">
+</div> 
+    <button class="otp-btn" onclick="verifyOTP()">Verify</button>
+    <p class="resend" onclick="alert('OTP resent!')">Resend OTP</p>
 
+  </div>
 </div>
 
-<button class="otp-btn" onclick="window.location.href='dashboard.html'">Verify</button>
+<script>
+function moveNext(el, index){
+  if(el.value.length === 1 && index < 6){
+    el.parentElement.children[index].focus();
+  }
+}
 
-<p class="resend">Resend OTP</p>
+async function verifyOTP(){
+  // Register user in backend
+  const name = localStorage.getItem("userName") || "User";
+  const phone = localStorage.getItem("userPhone") || "+910000000000";
+  const uid = "user_" + phone.replace(/\D/g, "");
+  const email = uid + "@sosconnect.app";
+  const formattedPhone = phone.startsWith("+") ? phone : "+91" + phone;
 
+  try {
+    await registerUser(uid, name, email, formattedPhone);
+    setUID(uid);
+  } catch(e) {
+    // If already registered, just set UID
+    setUID(uid);
+  }
 
+  window.location.href = "dashboard.html";
+}
+</script>
 
-</div>
+<script>
+function moveNext(el, index){
+  if(el.value.length === 1 && index < 6){
+    el.parentElement.children[index].focus();
+  }
+}
 
-</div>
+async function verifyOTP(){
+  // Register user in backend
+  const name = localStorage.getItem("userName") || "User";
+  const phone = localStorage.getItem("userPhone") || "+910000000000";
+  const uid = "user_" + phone.replace(/\D/g, "");
+  const email = uid + "@sosconnect.app";
+  const formattedPhone = phone.startsWith("+") ? phone : "+91" + phone;
+
+  try {
+    await registerUser(uid, name, email, formattedPhone);
+    setUID(uid);
+  } catch(e) {
+    // If already registered, just set UID
+    setUID(uid);
+  }
+
+  window.location.href = "dashboard.html";
+}
+</script>
 
 </body>
 </html>

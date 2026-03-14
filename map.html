@@ -1,65 +1,107 @@
+
 <!DOCTYPE html>
 <html>
-
 <head>
-    <script src="api.js"></script>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Map Preview</title>
-
 <link rel="stylesheet" href="style.css">
-
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<script src="api.js"></script>
 </head>
-
 <body>
 
 <button class="back-btn" onclick="window.location.href='dashboard.html'">
-<i class="fa-solid fa-arrow-left"></i>
+  <i class="fa-solid fa-arrow-left"></i>
 </button>
 
 <div class="map-container">
 
-<h1 class="title">Map Preview</h1>
+  <h1 class="title">Map Preview</h1>
 
-<div class="map-box">
+  <div class="map-box">
+    <i class="fa-solid fa-map-location-dot map-icon"></i>
+    <p class="map-text" id="locationText">Detecting your location...</p>
+  </div>
 
-<i class="fa-solid fa-map-location-dot map-icon"></i>
-
-<p class="map-text">Nearby Emergency Network</p>
-
-</div>
-
-<div class="map-info">
-
-<div class="info-item">
-<i class="fa-solid fa-user-shield"></i>
-<span>Nearby Responders Available</span>
-</div>
-
-<div class="info-item">
-<i class="fa-solid fa-hospital"></i>
-<span>Nearest Hospitals</span>
-</div>
-
-<div class="info-item">
-<i class="fa-solid fa-building-shield"></i>
-<span>Police Stations Nearby</span>
-</div>
-
-<div class="info-item">
-<i class="fa-solid fa-hand-holding-heart"></i>
-<span>Community SOS Responders</span>
-</div>
+  <div class="map-info" id="mapInfo">
+    <div class="info-item">
+      <i class="fa-solid fa-spinner fa-spin"></i>
+      <span>Loading nearby places...</span>
+    </div>
+  </div>
 
 </div>
 
-</div>
+<script>
+async function loadNearbyPlaces(){
+  const locationText = document.getElementById("locationText");
+  const mapInfo = document.getElementById("mapInfo");
+
+  if(!navigator.geolocation){
+    locationText.innerText = "Location not supported.";
+    return;
+  }
+
+  navigator.geolocation.getCurrentPosition(async (pos) => {
+    const lat = pos.coords.latitude;
+    const lon = pos.coords.longitude;
+
+    locationText.innerHTML = `📍 Lat: ${lat.toFixed(4)}, Lon: ${lon.toFixed(4)}`;
+
+    try {
+      const data = await getNearbyAll(lat, lon);
+      let html = "";
+
+      // Hospitals
+      if(data.hospitals && data.hospitals.length > 0){
+        html += `<div class="info-item">
+          <i class="fa-solid fa-hospital"></i>
+          <span><b>Nearest Hospital:</b> ${data.hospitals[0].name} (${data.hospitals[0].distance_km} km)
+          <br><a href="${data.hospitals[0].google_maps_link}" target="_blank" style="color:#00c8ff;font-size:12px;">Open in Maps</a></span>
+        </div>`;
+      }
+
+      // Police
+      if(data.police_stations && data.police_stations.length > 0){
+        html += `<div class="info-item">
+          <i class="fa-solid fa-building-shield"></i>
+          <span><b>Nearest Police:</b> ${data.police_stations[0].name} (${data.police_stations[0].distance_km} km)
+          <br><a href="${data.police_stations[0].google_maps_link}" target="_blank" style="color:#00c8ff;font-size:12px;">Open in Maps</a></span>
+        </div>`;
+      }
+
+      // Pharmacies
+      if(data.pharmacies && data.pharmacies.length > 0){
+        html += `<div class="info-item">
+          <i class="fa-solid fa-prescription-bottle-medical"></i>
+          <span><b>Nearest Pharmacy:</b> ${data.pharmacies[0].name} (${data.pharmacies[0].distance_km} km)
+          <br><a href="${data.pharmacies[0].google_maps_link}" target="_blank" style="color:#00c8ff;font-size:12px;">Open in Maps</a></span>
+        </div>`;
+      }
+
+      // Full map link
+      html += `<div class="info-item">
+        <i class="fa-solid fa-map-location-dot"></i>
+        <span><a href="https://maps.google.com/?q=${lat},${lon}" target="_blank" style="color:#00c8ff;">View My Location on Google Maps</a></span>
+      </div>`;
+
+      mapInfo.innerHTML = html || "<div class='info-item'><i class='fa-solid fa-circle-info'></i><span>No nearby places found.</span></div>";
+
+    } catch(e) {
+      mapInfo.innerHTML = `<div class="info-item">
+        <i class="fa-solid fa-map-location-dot"></i>
+        <span><a href="https://maps.google.com/?q=${lat},${lon}" target="_blank" style="color:#00c8ff;">View My Location on Google Maps</a></span>
+      </div>`;
+    }
+  }, () => {
+    locationText.innerText = "Location access denied.";
+    mapInfo.innerHTML = `<div class="info-item"><i class="fa-solid fa-circle-exclamation"></i><span>Please allow location access.</span></div>`;
+  });
+}
+
+loadNearbyPlaces();
+</script>
 
 </body>
-
 </html>

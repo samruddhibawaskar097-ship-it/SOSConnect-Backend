@@ -1,26 +1,28 @@
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SOS Connect Login</title>
 <link rel="stylesheet" href="style.css">
+<script src="api.js"></script>
 </head>
 
 <body>
 
-
-
 <div class="screen">
 
 <div class="login-card">
+     <div class="logo-small">SOS CONNECT</div>
 
-<div class="logo-small">SOS CONNECT</div>
 
-<h2>Login / Sign Up</h2>
+    <h2>Login / Sign Up</h2>
 
-<input type="text" placeholder="Enter Phone Number">
+<input type="text" id="phoneInput" placeholder="Enter Phone Number">
+input type="text" id="nameInput" placeholder="Your Full Name">
 
-<button class="otp-btn" onclick="window.location.href='otp.html'">Send OTP</button>
+<button class="otp-btn" onclick="sendOTP()">Send OTP</button>
 
 <div class="divider">OR</div>
 
@@ -28,11 +30,23 @@
 
 <button class="apple-btn">Continue with Apple</button>
 
-
-
+ /div>
 </div>
 
-</div>
+<script>
+async function sendOTP(){
+  const phone = document.getElementById("phoneInput").value.trim();
+  const name = document.getElementById("nameInput").value.trim();
+
+  if(!phone || !name){ alert("Enter your name and phone number!"); return; }
+
+  // Save name and phone for OTP page
+  localStorage.setItem("userName", name);
+  localStorage.setItem("userPhone", phone);
+
+  window.location.href = "otp.html";
+}
+</script>
 
 </body>
 </html>
