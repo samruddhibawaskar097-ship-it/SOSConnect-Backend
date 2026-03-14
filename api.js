@@ -129,21 +129,11 @@ async function respondCheckin() {
   return res.json();
 }
 
-// ── AUTH ──────────────────────────────────────────
-async function sendOTPAPI(phone, name) {
-  const res = await fetch(`${BASE_URL}/api/auth/send-otp`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ phone, name })
-  });
-  return res.json();
-}
-
-async function verifyOTPAPI(phone, otp, name) {
-  const res = await fetch(`${BASE_URL}/api/auth/verify-otp`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ phone, otp, name })
-  });
-  return res.json();
+async function verifyOTP(){
+  const name = localStorage.getItem("userName");
+  const phone = localStorage.getItem("userPhone");
+  const uid = "user_" + phone.replace(/\D/g,"");
+  setUID(uid);
+  try { await registerUser(uid, name, uid+"@sosconnect.app", phone); } catch(e){}
+  window.location.href = "dashboard.html";
 }
